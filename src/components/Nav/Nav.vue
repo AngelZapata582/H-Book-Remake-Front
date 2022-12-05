@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar" style="background:#000 ">
         <div class="container-fluid">
-    <a class="navbar-brand" href="#"><b class="text-light">
+    <a class="navbar-brand" href="/home"><b class="text-light">
       <img class="img-fluid logo-icon" src="../../assets/logo/logo.png"/>
       H - Books
     </b></a>
