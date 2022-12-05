@@ -78,6 +78,8 @@
 </template>
 
 <script>
+import url from '../../../enviroment.js'
+import Swal from 'sweetalert2'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 export default {
@@ -92,11 +94,10 @@ export default {
     },
     methods:{
         getToken(){
-            /* return VueCookies.get("token")  */
-            return "2|j3gyYsAjQ0dze5HCNulIE88fiTfSlSKft57cEGf3";
+            return VueCookies.get("token") 
         },
         async getLibro(id){
-            await axios.get('http://127.0.0.1:8000/api/book/'+id,{
+            await axios.get(url+'book/'+id,{
                 headers:{
                     'Authorization': `Bearer ${this.getToken()}` 
                 },
@@ -108,7 +109,7 @@ export default {
             })
         },
         async check(){
-            await axios.get('http://127.0.0.1:8000/api/check',{
+            await axios.get(url+'check',{
                 headers:{
                     'Authorization': `Bearer ${this.getToken()}` 
                 },
@@ -116,15 +117,25 @@ export default {
                 if(response.data.status){
                     this.user = response.data.user
                 }else{
-                    alert("Algo salio mal con su session")
+                    Swal.fire(
+                        'Porfavor vuelve a iniciar sesion',
+                        '',
+                        'warning'
+                    )
+                    this.$router.push('/login')
                 }
             }).catch(error=>{
                 console.log(error)
-                alert("Algo salio mal con su session")
+                Swal.fire(
+                        'Porfavor vuelve a iniciar sesion',
+                        '',
+                        'warning'
+                    )
+                    this.$router.push('/login')
             })
         },
         async guardarLibro(){
-            await axios.post('http://127.0.0.1:8000/api/book/save',{
+            await axios.post(url+'book/save',{
                 book_id:this.libro.id,
             },{
                 headers:{
@@ -132,13 +143,25 @@ export default {
                 },
             }).then(response=>{
                 if(response.data.status){
-                    alert(response.data.message)
+                    Swal.fire(
+                        'Guardado correctamente',
+                        '',
+                        'success'
+                    )
                 }else{
-                    alert("Algo salio mal")
+                    Swal.fire(
+                        'Algo salio mal',
+                        '',
+                        'error'
+                    )
                 }
             }).catch(error=>{
                 console.log(error)
-                alert("Algo salio mal")
+                Swal.fire(
+                        'Algo salio mal',
+                        '',
+                        'error'
+                    )
             })
         },
     }

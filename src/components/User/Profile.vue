@@ -1,35 +1,36 @@
-<template  style="overflow-x: hidden;">
-    <div class="container-fluid">
-        <div class="row"> <!-- align-items-center -->
-            <div class="col-lg-2 text-center ">
-                <img v-bind:src="`../../../images/user.png`" class="" width="150">
+<template>
+    <div class="container-fluid" style="padding-top: 5%;padding-bottom: 5%;" >
+        <div class="row align-items-center">
+            <div class="row pt-5 align-items-center"> <!-- align-items-center -->
+                <div class="col-lg-2 text-center ">
+                    <img v-bind:src="`../../../images/user.png`" class="" width="150">
+                </div>
+                <div class="col-lg-3">
+                    <h2 style="color: white;">{{user.name}}</h2>
+                    <span style="color: grey;">{{user.email}}</span>
+                </div>
             </div>
-            <div class="col-lg-3">
-                <h2 style="color: white;">{{user.name}}</h2>
-                <span style="color: grey;">{{user.email}}</span>
-            </div>
-        </div>
-        <div class="row pt-4 ">
-            <div class="col-lg-3">
-                <a type="button" class="btn btn-primary btn-sm rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar mis datos</a>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3">
+                    <a type="button" class="btn btn-primary btn-sm rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar mis datos</a>
+                </div>
             </div>
         </div>
     </div>
     <br>
 
     <!-- spinner -->
-    <div v-show="isLoading" class="spinner-border text-dark" style="width: 3rem; height: 3rem;" role="status">
+    <div v-show="isLoading" class="spinner-border text-dark text-center" style="width: 3rem; height: 3rem;" role="status">
     </div>
-
 
     <!-- Libros guardados -->
 <div v-show="!isLoading" style="width:100%;">
-    <h2 class="letter-page text-start ms-4 fs-3 text-white">Libros guardados:</h2>
+    <h2 class="letter-page text-start ms-4 fs-3 text-white">Libros guardados</h2>
     <div
     v-show="!isLoading"
     class="bloque"
     v-if="libros.length > 0"
-    style='width: 100%; display: inline-block; margin: 1rem;'
+    style="width: 100%; display: inline-block; margin: 1rem;"
     >
     <div class="m-2 bloque" v-for="(cat, index) in libros" :key="cat">
         <div class="card-book" style="float: left">
@@ -50,8 +51,9 @@
         </div>
     </div>
     </div>
-    <div v-show="!isLoading" v-else>
-        <h3 class="title-main m-4">No hay libros guardados</h3>
+    <div v-show="!isLoading" v-else class="text-center pb-5 pt-5">
+        <h3 class="title-main m-4">No tienes libros guardados</h3>
+        
     </div>
 </div>
 
@@ -80,17 +82,16 @@
 </template>
 
 
-<!-- Falta la parte de eliminar y listar los libros guradados -->
-<!-- Y cookies -->
 <script>
+import Swal from 'sweetalert2'
+import url from '../../../enviroment.js'
 import axios from "axios";
-//import VueCookies from 'vue-cookies';
+import VueCookies from 'vue-cookies';
 export default {
 data() {
     return {
         isLoading:false,
-        //token:VueCookies.get('user').token,
-        token: "2|j3gyYsAjQ0dze5HCNulIE88fiTfSlSKft57cEGf3",
+        token:VueCookies.get('token'),
         libros: [],
         user:{
             user:"",
@@ -109,7 +110,7 @@ data() {
     methods: {
         getInfo(){
             this.isLoading = true
-            axios.get("http://127.0.0.1:8000/api/user",
+            axios.get(url+"user",
             {
                 headers: {
                 Authorization: 'Bearer ' + this.token
@@ -124,9 +125,8 @@ data() {
             .catch((error) => console.log(error));
         },
         updateUser(){
-            this.isLoading = true
             axios
-            .put("http://127.0.0.1:8000/api/user",{
+            .put(url+"user",{
                 name:this.request.name,
                 email: this.request.email
             },{
@@ -145,7 +145,7 @@ data() {
         },
         getBooks() {
         this.isLoading = true
-        axios.get("http://127.0.0.1:8000/api/book/list",{
+        axios.get(url+"book/list",{
             headers:{
                 Authorization: 'Bearer ' + this.token
             }
@@ -157,12 +157,11 @@ data() {
             .catch((error) => console.log(error),this.isLoading = false);
         },
         showBook(id) {
-            window.location.href = "http://localhost:5173/book/"+id;
+            this.$router.push('/book/'+id);
+            //window.location.href = "http://localhost:5173/book/"+id;
         },
         deleteBook(id){
-            axios
-            .delete("http://127.0.0.1:8000/api/book/delete/"+id,{
-            },{
+            axios.delete(url+"book/delete/"+id,{
             headers:{
                 Authorization: 'Bearer ' + this.token,
                 "Access-Control-Allow-Origin": "*",
@@ -171,9 +170,30 @@ data() {
             }
             })
             .then((response) => {
-                response.data.message
+                if(response.data.status){
+                    Swal.fire(
+                        'Eliminado correctamente',
+                        '',
+                        'success'
+                    )
+                    this.getBooks();
+                }else{
+                    Swal.fire(
+                        'Algo salio mal',
+                        '',
+                        'error'
+                    )
+                }
+                
             })
-            .catch((error) => console.log(error));
+            .catch((error)=> {
+                console.log(error);
+                Swal.fire(
+                        'Algo salio mal',
+                        '',
+                        'error'
+                    )
+            });
         },
     }
 }
