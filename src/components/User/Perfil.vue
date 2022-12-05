@@ -1,40 +1,180 @@
-<template>
+<template  style="overflow-x: hidden;">
     <div class="container-fluid">
         <div class="row"> <!-- align-items-center -->
             <div class="col-lg-2 text-center ">
                 <img v-bind:src="`../../../images/user.png`" class="" width="150">
             </div>
             <div class="col-lg-3">
-                <h2 style="color: white;">Juan Vazquez</h2>
-                <span style="color: grey;">juanvazquez_jesuss@hotmail.com</span>
+                <h2 style="color: white;">{{user.name}}</h2>
+                <span style="color: grey;">{{user.email}}</span>
             </div>
         </div>
         <div class="row pt-4 ">
             <div class="col-lg-3">
-                <a type="button" class="btn btn-primary btn-sm rounded-pill px-5">Actualizar mis datos</a>
+                <a type="button" class="btn btn-primary btn-sm rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar mis datos</a>
             </div>
         </div>
     </div>
+    <br>
 
-    <div class="container-fluid" style="color: white;">
-        <div class="row">
-            <h2>Mis libros</h2>
-        </div>
+    <!-- spinner -->
+    <div v-show="isLoading" class="spinner-border text-dark" style="width: 3rem; height: 3rem;" role="status">
     </div>
 
+
+    <!-- Libros guardados -->
+<div v-show="!isLoading" style="width:100%;">
+    <h2 class="letter-page text-start ms-4 fs-3 text-white">Libros guardados:</h2>
+    <div
+    v-show="!isLoading"
+    class="bloque"
+    v-if="libros.length > 0"
+    style='width: 100%; display: inline-block; margin: 1rem;'
+    >
+    <div class="m-2 bloque" v-for="(cat, index) in libros" :key="cat">
+        <div class="card-book" style="float: left">
+        <img v-bind:src="`http://127.0.0.1:8000/api/image/${cat.imagen}`" class="img-card" @click="showBook(cat.book_id)"/>
+        <div class="row align-items-start mt-2">
+            <div class="col text-start">
+                <b class="letter-page book col-md-9 text-white" >{{ cat.titulo }}</b>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-primary" style="border-radius: 50%;"  @click="deleteBook(cat.book_id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div v-show="!isLoading" v-else>
+        <h3 class="title-main m-4">No hay libros guardados</h3>
+    </div>
+</div>
+
+<!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Acualiza tu informacion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="PUT">
+            <!--<input type="file" class="form-control m-2"/>-->
+            <input type="text" v-model='request.name' class="form-control m-2" placeholder="Ingresa tu nombre"/>
+            <input type="text" v-model='request.email' class="form-control m-2" placeholder="Ingresa tu email"/>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" @click="updateUser()">Actualizar</button>
+        </div>
+        </div>
+    </div>
+</div>
 </template>
 
 
-
+<!-- Falta la parte de eliminar y listar los libros guradados -->
+<!-- Y cookies -->
 <script>
+import axios from "axios";
+//import VueCookies from 'vue-cookies';
 export default {
-    data(){
-        return{
-
-        }
+data() {
+    return {
+        isLoading:false,
+        //token:VueCookies.get('user').token,
+        token: "2|j3gyYsAjQ0dze5HCNulIE88fiTfSlSKft57cEGf3",
+        libros: [],
+        user:{
+            user:"",
+            email:""
+        },
+        request:{
+            user:"",
+            email:""
+        },
+        };
     },
-    methods:{
-        
+    mounted() {
+        this.getInfo()
+        this.getBooks()
+    },
+    methods: {
+        getInfo(){
+            this.isLoading = true
+            axios.get("http://127.0.0.1:8000/api/user",
+            {
+                headers: {
+                Authorization: 'Bearer ' + this.token
+                }
+            })
+            .then((response) => {
+                this.user.name = response.data.user.name;
+                this.user.email = response.data.user.email;
+                this.request.name = this.user.name;
+                this.request.email = this.user.email;
+            })
+            .catch((error) => console.log(error));
+        },
+        updateUser(){
+            this.isLoading = true
+            axios
+            .put("http://127.0.0.1:8000/api/user",{
+                name:this.request.name,
+                email: this.request.email
+            },{
+            headers:{
+                Authorization: 'Bearer ' + this.token,
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+            }
+            })
+            .then((response) => {
+                this.user.name = response.data.user.name;
+                this.user.email = response.data.user.email;
+            })
+            .catch((error) => console.log(error));
+        },
+        getBooks() {
+        this.isLoading = true
+        axios.get("http://127.0.0.1:8000/api/book/list",{
+            headers:{
+                Authorization: 'Bearer ' + this.token
+            }
+            })
+            .then((response) => {
+            this.libros = response.data.libros;
+            console.log(response.data.libros);
+            })
+            .catch((error) => console.log(error),this.isLoading = false);
+        },
+        showBook(id) {
+            window.location.href = "http://localhost:5173/book/"+id;
+        },
+        deleteBook(id){
+            axios
+            .delete("http://127.0.0.1:8000/api/book/delete/"+id,{
+            },{
+            headers:{
+                Authorization: 'Bearer ' + this.token,
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+            }
+            })
+            .then((response) => {
+                response.data.message
+            })
+            .catch((error) => console.log(error));
+        },
     }
 }
 </script>
@@ -45,7 +185,47 @@ export default {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
+@media (max-width: 500px) {
+  .bloque {
+    display: none;
+  }
+  .bloque-xs {
+    width: 100%;
+    display: inline;
+  }
+}
+@media (min-width: 500px) {
+  .bloque-xs-div {
+    display: none;
+  }
+}
+.card-book {
+  text-align: left;
+  width: 200px;
+  height: 300px;
+  margin-top:0rem;
+  margin: 2rem;
+}
+.img-card {
+  image-rendering: optimizeSpeed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.btn-rounded-css {border-radius: 50%;}
+
 </style>

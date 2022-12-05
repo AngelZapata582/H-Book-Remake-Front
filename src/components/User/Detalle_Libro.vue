@@ -1,50 +1,42 @@
-<template>
+<template  style="overflow-x: hidden;">
     <!-- navbar -->
     <br>
     <div class="container" style="color: white;">
         <div class="row text-center">
-            <h2>Orgullo y prejuicio</h2>
-            <!-- <h2>{{libro.titulo}}</h2> -->
+
+            <h2>{{libro.titulo}}</h2>
         </div><br>
         <div class="row text-start">
             <div class="col-lg-3 ">
-                <img v-bind:src="`../../../images/book.jpg`" class="mx-auto d-block">
-                <!-- <img v-bind:src="`/files/img/${libro.imagen}`"> -->
+                <img v-bind:src="`http://127.0.0.1:8000/api/image/${libro.imagen}`" class="w-100" >
             </div>
             <div class="col-lg-9">
                 <div class="row">
                     <b>Sinopsis</b> <br>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure voluptatem, voluptatum neque quae culpa, ad deleniti tenetur natus eum quaerat itaque similique hic corporis. Eaque suscipit modi velit at qui. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos voluptatum illo exercitationem delectus porro quos molestias saepe beatae, accusantium repudiandae animi tenetur sed, impedit natus fugiat nihil, est at alias.</p>
-                    <!-- <p>{{libro.sinopsis}}</p> -->
+                    <p>{{libro.sinopsis}}</p>
                 </div>
                 <div class="row">
                     <b>Informacion adicional</b> 
                     
                     <div class="col">
-                        <p>Autor: Daniel Habit</p>
-                        <!--  <p>Autor: {{libro.autor}}</p> -->
+                        <p>Autor: {{libro.autor}}</p>
                     </div>
                     <div class="col">
-                        <p>ISBN: 9728651823754912</p>
-                        <!-- <p>ISBN: {{libro.isbn}}</p> -->
+                        <p>ISBN: {{libro.isbn}}</p>
                     </div>
                     <div class="col">
-                        <p>Edicion: 1a Edicion</p>
-                        <!-- <p>Edicion: {{libro.edicion}}</p> -->
+                        <p>Edicion: {{libro.edicion}}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p>Editorial: Harpercollins Mexico</p>
-                        <!-- <p>Editorial: {{libro.editorial}}</p> -->
+                        <p>Editorial: {{libro.editorial}}</p>
                     </div>
                     <div class="col">
-                        <p>Numero de Paginas: 432</p>
-                        <!-- <p>Numero de Paginas: {{libro.numero_paginas}}</p> -->
+                        <p>Numero de Paginas: {{libro.numero_paginas}}</p>
                     </div>
                     <div class="col">
-                        <p>Año: 2021</p>
-                        <!-- <p>Año: {{libro.año_lanzamiento}}</p> -->
+                        <p>Año: {{libro.año_lanzamiento}}</p>
                     </div>
                 </div>
             </div>
@@ -54,13 +46,11 @@
 
         <div class="row">
             <div class="col-lg-3 d-grid gap-2 p-2">
-                <a type="button" class="btn btn-primary" download>Descargar PDF</a>
-                <!-- <a v-bind:href="'/files/pdf/'+libro.pdf" type="button" class="btn btn-danger" download>Descargar PDF</a> -->
+                <a v-bind:href="'http://127.0.0.1:8000/api/file/'+libro.pdf" type="button" class="btn btn-primary" download>Descargar PDF</a>
             </div>
 
             <div class="col-lg-3 d-grid gap-2 p-2">
-                <button type="button" class="btn btn-primary ">Guardar Libro</button>
-                <!--  <button type="button" @click="guardarLibro()" class="btn btn-outline bg-brown text-white">Guardar Libro</button> -->
+                <button type="button" @click="guardarLibro()" class="btn btn-primary text-white">Guardar Libro</button>
             </div>
         </div>
 
@@ -102,14 +92,16 @@ export default {
     },
     methods:{
         getToken(){
-            return VueCookies.get("token") 
+            /* return VueCookies.get("token")  */
+            return "2|j3gyYsAjQ0dze5HCNulIE88fiTfSlSKft57cEGf3";
         },
         async getLibro(id){
-            
-            await axios.post('http://127.0.0.1:8000/api/filtrar/libro',{
-                libro_id:id
+            await axios.get('http://127.0.0.1:8000/api/book/'+id,{
+                headers:{
+                    'Authorization': `Bearer ${this.getToken()}` 
+                },
             }).then(response=>{
-                this.libro = response.data.libro
+                this.libro = response.data.libro;
             }).catch(error=>{
                 console.log(error)
                 this.libros = {}
@@ -132,10 +124,8 @@ export default {
             })
         },
         async guardarLibro(){
-            await this.check()
-            await axios.post('http://127.0.0.1:8000/api/guardar/libro',{
-                libro_id:this.libro.id,
-                user_id:this.user.id
+            await axios.post('http://127.0.0.1:8000/api/book/save',{
+                book_id:this.libro.id,
             },{
                 headers:{
                     'Authorization': `Bearer ${this.getToken()}` 

@@ -19,7 +19,7 @@ const router = createRouter({
                 {path:'cita',component:Cita}
             ]},
             {path:'book/:id', component:Detalle_Libro},
-            {path:'perfil', component:Perfil},
+            {path:'profile', component:Perfil},
             {path:'login', component:Login}
         ]}
     ]
