@@ -8,6 +8,7 @@ import Detalle_Libro from '../components/User/Detalle_Libro.vue'
 import Perfil from '../components/User/Perfil.vue'
 import Welcome from '../components/Welcome/Welcome.vue'
 import Home from '../components/User/Home/Home.vue'
+import Registro from '../components/User/Registro.vue'
 import Categories from '../components/User/Categories/Categories.vue'
 import App from '../App.vue'
 const router = createRouter({
@@ -30,7 +31,8 @@ const router = createRouter({
                 { path: 'categories', component: Categories },
                 { path: 'book/:id', component: Detalle_Libro },
                 { path: 'perfil', component: Perfil },
-                { path: 'login', component: Login }
+                { path: 'login', component: Login },
+                { path: 'registro', component: Registro }
             ]
         }
     ]
