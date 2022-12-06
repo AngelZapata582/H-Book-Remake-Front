@@ -1,6 +1,6 @@
 <template>
     <div class="container">    
-    <button type="button" id="myModal" class="btn text-light my-2" style="background-color: #2B5CBA;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button @click="edit = false" type="button" id="myModal" class="btn text-light my-2" style="background-color: #2B5CBA;" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Agregar
     </button>
     <div v-if="loading" class="d-flex justify-content-center">
