@@ -11,6 +11,7 @@ import Home from '../components/User/Home/Home.vue'
 import Registro from '../components/User/Registro.vue'
 import Categories from '../components/User/Categories/Categories.vue'
 import App from '../App.vue'
+import AdminMenu from '../components/Admin/AdminMenu.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -21,9 +22,11 @@ const router = createRouter({
                 { path: '', redirect: '/welcome' },
                 {
                     path: 'admin', children: [
-                        { path: 'book', component: Books },
-                        { path: 'category', component: Category },
-                        { path: 'cita', component: Cita }
+                        { path: '', redirect: { name: 'menuAdmin' } },
+                        { path: 'menu', component: AdminMenu, name: 'menuAdmin' },
+                        { path: 'book', component: Books, name: 'menuBook' },
+                        { path: 'category', component: Category, name: 'menuCategory' },
+                        { path: 'cita', component: Cita, name: 'menuCita' }
                     ]
                 },
                 { path: 'welcome', component: Welcome },
