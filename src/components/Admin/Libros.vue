@@ -141,6 +141,9 @@ import url from '../../../enviroment'
 import VueCookies from 'vue-cookies';
 import Swal from 'sweetalert2';
 export default {
+    beforeEnter: (to, from, next) => {
+        
+    },
     mounted() {
         this.getBooks();
         this.getCategories()
