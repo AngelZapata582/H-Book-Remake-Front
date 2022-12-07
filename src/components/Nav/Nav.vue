@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar" style="background:#000 " v-if="showing">
+  <nav class="navbar" style="background:#000 ">
     <div class="container-fluid">
       <a class="navbar-brand" href="/home"><b class="text-light">
           <img class="img-fluid logo-icon" src="../../assets/logo/logo.png" />
           H - Books
         </b></a>
-      <div class="row mx-auto mx-md-4">
+      <div class="row mx-auto mx-md-4"  v-if="showing">
         <div class="col-6 col-md-6">
           <div class="dropdown-center">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
