@@ -1,6 +1,6 @@
 <template>
     <router-link :to="('/book/' + book.id)">
-        <img :src="book.imagen" alt="Book cover" />
+        <img v-bind:src="`${urlapi}image/${book.imagen}`" alt="Book cover" />
         <p>{{ book.titulo }}</p>
         <p>
             <small>{{ book.autor }}</small>
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import url from '../../../enviroment.js'
 export default {
     name: 'BookCard',
     props: {
@@ -21,6 +22,11 @@ export default {
                 autor: '',
             }),
         },
+    },
+    data(){
+        return{
+            urlapi:url
+        }
     }
 }
 </script>

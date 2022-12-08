@@ -88,7 +88,7 @@
                         </div>
                         <div class="mb-3 text-light">
                             <label class="form-label">ISBN</label>
-                            <input type="text" class="form-control" v-model="book.isbn">
+                            <input type="text" class="form-control" v-model="book.isbn" maxlength="13">
                         </div>
                         <div class="mb-3 text-light">
                             <label class="form-label">Categoria</label>
@@ -142,12 +142,6 @@ import url from '../../../enviroment'
 import VueCookies from 'vue-cookies';
 import Swal from 'sweetalert2';
 export default {
-    beforeEnter: (to, from, next) => {
-        axios.get(url+'check',{headers: {Authorization: "Bearer " + this.token,}})
-        .then(r=>{
-            return r.data
-        })
-    },
     mounted() {
         this.getBooks();
         this.getCategories()

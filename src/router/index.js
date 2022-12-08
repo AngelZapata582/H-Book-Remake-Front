@@ -26,11 +26,18 @@ const router = createRouter({
         {
             path: '/', component: ViewRoutes, children: [
                 //home {path:'',component:},
-         
+
                 { path: '', redirect: { name: 'welcome' } },
                 { path: 'welcome', component: Welcome, name: 'welcome' },
                 {
-                    path: 'admin', children: [
+                    path: 'admin', async beforeEnter(to, from, next) {
+                        await axios.get(url + 'check', { headers: { Authorization: "Bearer " + VueCookies.get('token'), } })
+                            .then(r => {
+                                console.log(r.data)
+                                if(!r.data)next({name:'home'})
+                                next()
+                            })
+                    }, children: [
                         { path: '', redirect: { name: 'menuAdmin' } },
                         { path: 'menu', component: AdminMenu, name: 'menuAdmin' },
                         { path: 'book', component: Books, name: 'menuBook' },
@@ -42,13 +49,17 @@ const router = createRouter({
                 { path: 'categories/:id', component: Categories, name: 'categories' },
                 { path: 'book/:id', component: BookDetail, name: 'book' },
                 { path: 'profile', component: Profile, name: 'profile' },
-                { path: 'login', component: Login, name: 'login', beforeEnter(to,from){
-                    if(VueCookies.isKey('token') && to.name === 'login') return {name:'home'}
-                }},
-                { path: 'registro', component: Registro, name: 'register', beforeEnter(to,from){
-                    if(VueCookies.isKey('token') && to.name === 'register') return {name:'home'}
-                }},
-                {path:'/:catchAll(.*)',component:notfound}
+                {
+                    path: 'login', component: Login, name: 'login', beforeEnter(to, from) {
+                        if (VueCookies.isKey('token') && to.name === 'login') return { name: 'home' }
+                    }
+                },
+                {
+                    path: 'registro', component: Registro, name: 'register', beforeEnter(to, from) {
+                        if (VueCookies.isKey('token') && to.name === 'register') return { name: 'home' }
+                    }
+                },
+                { path: '/:catchAll(.*)', component: notfound }
             ]
         }
     ]

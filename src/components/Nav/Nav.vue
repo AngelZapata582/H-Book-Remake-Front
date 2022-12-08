@@ -77,7 +77,9 @@ export default {
       window.location.reload()
     },
     checkAdmin(){
-      axios.get(this.API_URL+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
+      if(VueCookies.isKey('token')){
+        axios.get(this.API_URL+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
+      }
     },
     getCategories() {
       axios.get(this.API_URL+this.entity, {

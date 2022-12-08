@@ -6,7 +6,7 @@
             <div class="col-lg-6" id="container-image-cover-1">
             <img
                 class="img-fluid d-block mx-auto"
-                :src="coverImage"
+                :src="`${urlapi}image/${coverImage}`"
                 alt="cover-book"
             />
             </div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import url from '../../../enviroment.js'
 export default {
     name: 'Quotes',
     props: {
@@ -36,6 +37,11 @@ export default {
         author: {
             type: String,
             default: ''
+        }
+    },
+    data(){
+        return {
+            urlapi:url
         }
     }
 }

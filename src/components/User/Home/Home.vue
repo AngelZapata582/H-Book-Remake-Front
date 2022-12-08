@@ -81,33 +81,34 @@ export default {
             })
         },
         async getQuote() {
-            await axios.get( this.API_URL + "cita", {
+            await axios.get( this.API_URL + "cita/random", {
                 headers: {
                     'Authorization': `Bearer ${this.getToken()}` 
                 }
             }).then( res => {
-                let quotes = res.data.citas
-                let random = Math.floor(Math.random() * quotes.length)
-                let quote = quotes[random]
-                this.quote.phrase = quote.cita
-                this.firstSection.books.forEach( book => {
-                    if (book.id == quote.book_id) {
-                        this.quote.coverImage = book.imagen
-                        this.quote.author = book.autor
-                    }
-                })
-                this.secondSection.books.forEach( book => {
-                    if (book.id == quote.book_id) {
-                        this.quote.coverImage = book.imagen
-                        this.quote.author = book.autor
-                    }
-                })
-                this.thirdSection.books.forEach( book => {
-                    if (book.id == quote.book_id) {
-                        this.quote.coverImage = book.imagen
-                        this.quote.author = book.autor
-                    }
-                })
+                console.log(res)
+                let quotes = res.data.citas[0]
+                this.quote.phrase = quotes.cita
+                this.quote.coverImage = quotes.imagen
+                this.quote.author = quotes.autor
+                // this.firstSection.books.forEach( book => {
+                //     if (book.id == quote.book_id) {
+                //         this.quote.coverImage = book.imagen
+                //         this.quote.author = book.autor
+                //     }
+                // })
+                // this.secondSection.books.forEach( book => {
+                //     if (book.id == quote.book_id) {
+                //         this.quote.coverImage = book.imagen
+                //         this.quote.author = book.autor
+                //     }
+                // })
+                // this.thirdSection.books.forEach( book => {
+                //     if (book.id == quote.book_id) {
+                //         this.quote.coverImage = book.imagen
+                //         this.quote.author = book.autor
+                //     }
+                // })
             })
         }
     }

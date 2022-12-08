@@ -32,7 +32,7 @@
 
                 </div>
                 <div className="text col-1 mx-auto py-2">
-                  <a href="/registro" className="card-link">Iniciar</a>
+                  <a href="/login" className="card-link">Iniciar</a>
                   </div>
             </form>
         </div>
