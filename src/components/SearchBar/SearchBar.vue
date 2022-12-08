@@ -22,7 +22,7 @@
                 <div class="d-flex flex-column">
                     <div v-for="result in results" :key="result.id">
                         <router-link :to="('/book/' + result.id)"  class="d-flex align-items-center">
-                            <img :src="result.imagen" class="img-cover-book">
+                            <img v-bind:src="result.imagen" class="img-cover-book">
                             <p class="ms-3">{{ result.titulo }}</p>
                         </router-link>
                     </div>
