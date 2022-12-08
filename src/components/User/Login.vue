@@ -108,7 +108,8 @@ export default {
                        '',
                        'success'
                     )
-                    this.$router.push({path:'/home'})
+                    window.location.reload()
+                    //this.$router.push({path:'/home'})
                 //mandar al login
               }
               else{

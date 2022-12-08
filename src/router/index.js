@@ -26,7 +26,7 @@ const router = createRouter({
         {
             path: '/', component: ViewRoutes, children: [
                 //home {path:'',component:},
-           
+         
                 { path: '', redirect: { name: 'welcome' } },
                 { path: 'welcome', component: Welcome, name: 'welcome' },
                 {
