@@ -5,8 +5,8 @@
           <img class="img-fluid logo-icon" src="../../assets/logo/logo.png" />
           H - Books
         </b></a>
-      <div class="row mx-auto mx-md-4"  v-if="showing">
-        <div class="col-6 col-md-6">
+      <div class="row mx-auto mx-md-4 col-md-4 col-sm-7"  v-if="showing">
+        <div class="col-6 col-md-6 my-auto">
           <div class="dropdown-center">
             <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -23,18 +23,20 @@
           </div>
         </div>
 
-        <div class="col-6 col-md-6">
+        <div class="col-6 col-md-6 my-auto">
           <div class="dropdown-center">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false" style="background-color: #2B5CBA;border: none;">
-              Usuario
+              {{name}}
             </button>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li><a class="dropdown-item" href="#">
+                <router-link :to="{name:'profile'}" class="text-decoration-none text-dark">Perfil</router-link>
+              </a></li>
               <li><a class="dropdown-item" v-if="admin">
                 <router-link :to="{name:'menuAdmin'}" class="text-decoration-none text-dark">Administrar</router-link>
               </a></li>
-              <li><a class="dropdown-item" href="#" v-on:click="logout()">Cerrar sesión</a></li>
+              <li><a class="dropdown-item" v-on:click="logout()">Cerrar sesión</a></li>
             </ul>
           </div>
         </div>
@@ -57,6 +59,7 @@ export default {
   },
   data() {
     return {
+      name: VueCookies.isKey('token') ? VueCookies.get('name') ? VueCookies.get('name') : null : null,
       showing:false,
       categories: [],
       token: VueCookies.isKey('token') ? VueCookies.get('token') : null,

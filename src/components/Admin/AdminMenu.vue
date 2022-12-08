@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row row-cols-12 row-cols-sm-12 row-cols-md-4">
+        <div class="row row-cols-12 row-cols-sm-12 row-cols-md-4 justify-content-center">
             <div class="col align-self-center">
                 <router-link :to="{ name: 'menuCategory' }" class="text-decoration-none">
                     <div class="card text-light p-2 my-2"
@@ -14,9 +14,7 @@
                         </svg>
                         <div class="card-body text-center">
                             <h5 class="card-title">Administrar categorias</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
+                            <p class="card-text">Adminstra las categorias. Agrega, elimina o edita las categorias existentes.</p>
                         </div>
                     </div>
                 </router-link>
@@ -32,9 +30,7 @@
                         </svg>
                         <div class="card-body text-center">
                             <h5 class="card-title">Administrar libros</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
+                            <p class="card-text">Adminstra los libros. Agrega, elimina o edita los libros existentes.</p>
                         </div>
                     </div>
                 </router-link>
@@ -54,9 +50,7 @@
                         </svg>
                         <div class="card-body text-center">
                             <h5 class="card-title">Administrar citas</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
+                            <p class="card-text">Adminstra las citas. Agrega, elimina o edita las citas existentes.</p>
                         </div>
                     </div>
                 </router-link>

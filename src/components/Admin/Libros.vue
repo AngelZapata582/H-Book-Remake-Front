@@ -47,7 +47,8 @@
                                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                     </svg>
                                 </button>
-                                <button type="button" class="btn m-1" style="background-color: #2B5CBA;" @click="">
+                                <button type="button" class="btn m-1" style="background-color: #2B5CBA;" 
+                                    @click="deleteBook(book.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
                                         class="bi bi-trash" viewBox="0 0 16 16">
                                         <path
@@ -142,7 +143,10 @@ import VueCookies from 'vue-cookies';
 import Swal from 'sweetalert2';
 export default {
     beforeEnter: (to, from, next) => {
-        
+        axios.get(url+'check',{headers: {Authorization: "Bearer " + this.token,}})
+        .then(r=>{
+            return r.data
+        })
     },
     mounted() {
         this.getBooks();
@@ -328,6 +332,26 @@ export default {
                     })
                     console.log(e)
                 })
+        },
+        deleteBook(id){
+            axios.delete(url + this.entity + '/' + id,
+                { headers: { Authorization: "Bearer " + this.token } })
+                .then(r => {
+                    this.loading = false;
+                    this.Toast.fire({
+                        icon: 'info',
+                        title: 'El libro a sido eliminada.'
+                    })
+                    this.getBooks()
+                })
+                .catch(e => {
+                    this.loading = false;
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Ha ocurrido un error al eliminar el libro.'
+                    })
+                    console.log(e)
+            })
         }
     }
 }

@@ -101,7 +101,7 @@ export default {
               password:this.password
            }).then(response=>{
                  if(response.data.status){
-                    
+                    VueCookies.set('name',response.data.name)
                     VueCookies.set('token',response.data.token) 
                     Swal.fire(
                        'Bienvenido a H-books',
