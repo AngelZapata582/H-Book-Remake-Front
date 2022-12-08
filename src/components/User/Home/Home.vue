@@ -1,4 +1,5 @@
 <template>
+    <Search-bar />
     <BookSlider 
         :title="firstSection.title" 
         :subtitle="firstSection.subtitle" 
@@ -17,6 +18,7 @@
 <script>
 import BookSlider from '../../BookSlider/BookSlider.vue';
 import Quotes from '../../Quotes/Quotes.vue';
+import SearchBar from '../../SearchBar/SearchBar.vue';
 import VueCookies from 'vue-cookies';
 import axios from 'axios';
 import env from '../../../../env';
@@ -24,7 +26,8 @@ export default {
     name: 'Home',
     components: {
         BookSlider,
-        Quotes
+        Quotes,
+        SearchBar
     },
     data() {
         return {
@@ -53,8 +56,10 @@ export default {
         }
     },
     async mounted() {
-        let res = await this.getBooks(1);
-        console.log(res)
+        await this.getBooks(1)
+        await this.getBooks(2)
+        await this.getBooks(3)
+        await this.getQuote()
     },
     methods: {
         getToken: () => VueCookies.get('token'),
@@ -63,7 +68,47 @@ export default {
                 headers: {
                     'Authorization': `Bearer ${this.getToken()}` 
                 }
-            }).then( res => res)
+            }).then( res => {
+                if (id == 1) {
+                    this.firstSection.books = res.data.message
+                }
+                if (id == 2) {
+                    this.secondSection.books = res.data.message
+                }
+                if (id == 3) {
+                    this.thirdSection.books = res.data.message
+                }
+            })
+        },
+        async getQuote() {
+            await axios.get( this.API_URL + "cita", {
+                headers: {
+                    'Authorization': `Bearer ${this.getToken()}` 
+                }
+            }).then( res => {
+                let quotes = res.data.citas
+                let random = Math.floor(Math.random() * quotes.length)
+                let quote = quotes[random]
+                this.quote.phrase = quote.cita
+                this.firstSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+                this.secondSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+                this.thirdSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+            })
         }
     }
 }

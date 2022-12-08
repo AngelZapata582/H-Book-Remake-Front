@@ -37,7 +37,7 @@ const router = createRouter({
                     ]
                 },
                 { path: 'home', component: Home, name: 'home' },
-                { path: 'categories', component: Categories, name: 'categories' },
+                { path: 'categories/:id', component: Categories, name: 'categories' },
                 { path: 'book/:id', component: BookDetail, name: 'book' },
                 { path: 'profile', component: Profile, name: 'profile' },
                 { path: 'login', component: Login, name: 'login' },

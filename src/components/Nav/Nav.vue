@@ -13,7 +13,11 @@
               Categorias
             </button>
             <ul class="dropdown-menu">
-              <div v-for="category in categories" v-bind:key="category"><li><a class="dropdown-item" href="#">{{category.categoria}}</a></li></div>
+              <div v-for="category in categories" v-bind:key="category">
+                <router-link :to="('/categories/'+category.id)" class="dropdown-item">
+                  {{category.categoria}}
+                </router-link>
+              </div>
             </ul>
           </div>
         </div>
@@ -73,9 +77,12 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .logo-icon {
   width: 50px;
   height: 50px;
+}
+li {
+  cursor: pointer;
 }
 </style>
