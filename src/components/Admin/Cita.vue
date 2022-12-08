@@ -5,6 +5,11 @@
             Agregar
         </button>
         <div class="container-fluid text-center">
+            <div class="container row">
+                <div class="col-md-3 offset-md-9 col-12">
+                    <input class="form-control" placeholder="Buscar Libro" v-model="queryBook" />
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr class="text-light">
@@ -15,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-light" v-for="(cita, index) in citas" :key="cita.id">
+                    <tr class="text-light" v-for="(cita, index) in computedCita" :key="cita.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ cita.cita }}</td>
                         <td>{{ cita.titulo }}</td>
@@ -91,6 +96,9 @@ export default {
     computed: {
         computedList() {
             return this.books.filter((item) => item.titulo.toLowerCase().includes(this.query));
+        },
+        computedCita() {
+            return this.citas.filter((item) => item.titulo.toLowerCase().includes(this.queryBook));
         }
     },
     mounted(){
@@ -106,6 +114,7 @@ export default {
                 book_id:0
             },
             query: '',
+            queryBook:'',
             books: [],
             edit:false,
             entity:'cita',

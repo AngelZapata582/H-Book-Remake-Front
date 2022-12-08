@@ -10,6 +10,11 @@
             </div>
         </div>
         <div class="container-fluid text-center">
+            <div class="container row">
+                <div class="col-md-3 offset-md-9 col-12">
+                    <input class="form-control" placeholder="Buscar Libro" v-model="query" />
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr class="text-light">
@@ -25,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-if="books.length > 0 && !loading" class="text-light" v-for="(book, index) in books"
+                    <tr v-if="books.length > 0 && !loading" class="text-light" v-for="(book, index) in computedList"
                         :key="book.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ book.titulo }}</td>
@@ -142,12 +147,18 @@ import url from '../../../enviroment'
 import VueCookies from 'vue-cookies';
 import Swal from 'sweetalert2';
 export default {
+    computed:{
+        computedList() {
+            return this.books.filter((item) => item.titulo.toLowerCase().includes(this.query));
+        }
+    },
     mounted() {
         this.getBooks();
         this.getCategories()
     },
     data() {
         return {
+            query:'',
             books: [],
             book: {
                 id: 0,

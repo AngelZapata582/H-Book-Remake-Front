@@ -5,6 +5,11 @@
             Agregar
         </button>
         <div class="container-fluid text-center">
+            <div class="container row">
+                <div class="col-md-3 offset-md-9 col-12">
+                    <input class="form-control" placeholder="Buscar Libro" v-model="query" />
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr class="text-light">
@@ -14,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-light" v-for="(category, index) in categories" :key="category.id">
+                    <tr class="text-light" v-for="(category, index) in computedList" :key="category.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ category.categoria }}</td>
                         <td>
@@ -80,11 +85,17 @@ import url from '../../../enviroment.js';
 import Swal from 'sweetalert2'
 import VueCookies from 'vue-cookies'
 export default {
+    computed:{
+        computedList() {
+            return this.categories.filter((item) => item.categoria.toLowerCase().includes(this.query));
+        },
+    },
     mounted() {
         this.getCategories()
     },
     data() {
         return {
+            query:'',
             categories: [],
             category: {
                 categoria: ''
