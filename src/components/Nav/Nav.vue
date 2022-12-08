@@ -48,7 +48,7 @@
 <script>
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
-import url from '../../../enviroment.js'
+import env from '../../../env'
 export default {
   mounted(){
     this.checkAdmin()
@@ -65,6 +65,7 @@ export default {
       token: VueCookies.isKey('token') ? VueCookies.get('token') : null,
       isLogin: VueCookies.isKey('token'),
       entity: 'categories',
+      API_URL: env.API_URL,
       admin:false
     }
   },
@@ -76,10 +77,10 @@ export default {
       window.location.reload()
     },
     checkAdmin(){
-      axios.get(url+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
+      axios.get(this.API_URL+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
     },
     getCategories() {
-      axios.get(url+this.entity, {
+      axios.get(this.API_URL+this.entity, {
         headers: {
           Authorization: "Bearer " + this.token,
         }
@@ -94,9 +95,12 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .logo-icon {
   width: 50px;
   height: 50px;
+}
+li {
+  cursor: pointer;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <img :src="book.cover" alt="Book cover" />
-        <p>{{ book.title }}</p>
+    <router-link :to="('/book/' + book.id)">
+        <img :src="book.imagen" alt="Book cover" />
+        <p>{{ book.titulo }}</p>
         <p>
-            <small>{{ book.author }}</small>
+            <small>{{ book.autor }}</small>
         </p>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -16,9 +16,9 @@ export default {
             type: Object,
             default: () => ({
                 id: null,
-                title: '',
-                cover: '',
-                author: '',
+                titulo: '',
+                imagen: '',
+                autor: '',
             }),
         },
     }
@@ -43,5 +43,12 @@ export default {
         font-weight: 600;
         margin: 0;
         text-align: start;
+    }
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+    a:hover {
+        text-decoration: none;
     }
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <Search-bar />
     <BookSlider 
         :title="firstSection.title" 
         :subtitle="firstSection.subtitle" 
@@ -17,364 +18,98 @@
 <script>
 import BookSlider from '../../BookSlider/BookSlider.vue';
 import Quotes from '../../Quotes/Quotes.vue';
+import SearchBar from '../../SearchBar/SearchBar.vue';
+import VueCookies from 'vue-cookies';
+import axios from 'axios';
+import env from '../../../../env';
 export default {
     name: 'Home',
     components: {
         BookSlider,
-        Quotes
+        Quotes,
+        SearchBar
     },
     data() {
         return {
+            API_URL: env.API_URL,
+            entitiy: 'categories/',
             firstSection: {
                 title: 'Mejores clasicos venididos',
                 subtitle: 'Quizá clásicos?...',
-                books: [                   
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                ]
+                books: []
             },
             secondSection: {
                 title: 'Cuentos ilustrativos',
                 subtitle: 'Para los niños...',
-                books: [                   
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                ]
+                books: []
             },
             thirdSection: {
                 title: 'Para los enamorados',
                 subtitle: 'Una amor que te consume...',
-                books: [                   
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                    {
-                        id: 1,
-                        title: 'The Hunger Games',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Suzanne Collins',
-                    },
-                    {
-                        id: 2,
-                        title: 'Harry Potter',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'J.K. Rowling',
-                    },
-                    {
-                        id: 3,
-                        title: 'To Kill a Mockingbird',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Harper Lee',
-                    },
-                    {
-                        id: 4,
-                        title: 'Pride and Prejudice',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Jane Austen',
-                    },
-                    {
-                        id: 5,
-                        title: 'Twilight',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Stephenie Meyer',
-                    },
-                    {
-                        id: 6,
-                        title: 'The Book Thief',
-                        cover: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                        author: 'Markus Zusak',
-                    },
-                ]
+                books: []
             },
             quote: {
-                coverImage: 'https://media.allure.com/photos/605247e1bddfa641546fa160/1:1/w_2264,h_2264,c_limit/billie%20eilish.jpg',
-                phrase: 'The best way to predict the future is to invent it.',
-                author: 'Alan Kay',
+                coverImage: '',
+                phrase: '',
+                author: '',
             }
         }
     },
+    async mounted() {
+        await this.getBooks(1)
+        await this.getBooks(2)
+        await this.getBooks(3)
+        await this.getQuote()
+    },
     methods: {
+        getToken: () => VueCookies.get('token'),
+        async getBooks(id) {
+            await axios.get( this.API_URL + this.entitiy + id + "/books", {
+                headers: {
+                    'Authorization': `Bearer ${this.getToken()}` 
+                }
+            }).then( res => {
+                if (id == 1) {
+                    this.firstSection.books = res.data.message
+                }
+                if (id == 2) {
+                    this.secondSection.books = res.data.message
+                }
+                if (id == 3) {
+                    this.thirdSection.books = res.data.message
+                }
+            })
+        },
+        async getQuote() {
+            await axios.get( this.API_URL + "cita", {
+                headers: {
+                    'Authorization': `Bearer ${this.getToken()}` 
+                }
+            }).then( res => {
+                let quotes = res.data.citas
+                let random = Math.floor(Math.random() * quotes.length)
+                let quote = quotes[random]
+                this.quote.phrase = quote.cita
+                this.firstSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+                this.secondSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+                this.thirdSection.books.forEach( book => {
+                    if (book.id == quote.book_id) {
+                        this.quote.coverImage = book.imagen
+                        this.quote.author = book.autor
+                    }
+                })
+            })
+        }
     }
 }
 </script>

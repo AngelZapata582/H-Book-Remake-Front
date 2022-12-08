@@ -83,13 +83,15 @@ import url from '../../../enviroment.js'
 import Swal from 'sweetalert2'
 import axios from "axios";
 import VueCookies from 'vue-cookies'
+import env from '../../../env';
 export default {
    
    data(){
        return {
            user:{},
            email:"",
-           password:""
+           password:"",
+           API_URL: env.API_URL,
        }
    },
    methods:{
