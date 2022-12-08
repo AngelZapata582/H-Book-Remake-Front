@@ -38,7 +38,7 @@
 <script>
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
-import url from '../../../enviroment.js'
+import env from '../../../env'
 export default {
   mounted(){
     this.showing = VueCookies.isKey('token') ? true : false;
@@ -52,12 +52,13 @@ export default {
       categories: [],
       token: VueCookies.isKey('token') ? VueCookies.get('token') : null,
       isLogin: VueCookies.isKey('token'),
-      entity: 'categories'
+      entity: 'categories',
+      API_URL: env.API_URL
     }
   },
   methods: {
     getCategories() {
-      axios.get(url+this.entity, {
+      axios.get(this.API_URL+this.entity, {
         headers: {
           Authorization: "Bearer " + this.token,
         }

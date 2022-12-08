@@ -82,20 +82,22 @@
 import Swal from 'sweetalert2'
 import axios from "axios";
 import VueCookies from 'vue-cookies'
+import env from '../../../env';
 export default {
    
    data(){
        return {
            user:{},
            email:"",
-           password:""
+           password:"",
+           API_URL: env.API_URL,
        }
    },
    methods:{
 
      async login(){
            
-           await axios.post('http://127.0.0.1:8000/api/login',{
+           await axios.post(`${this.API_URL}login`,{
               email:this.email,
               password:this.password
            }).then(response=>{
