@@ -6,7 +6,7 @@
             <div class="col-lg-6" id="container-image-cover-1">
             <img
                 class="img-fluid d-block mx-auto"
-                v-bind:src="`${urlapi}image/${coverImage}`"
+                :src="`${urlapi}image/${coverImage}`"
                 alt="cover-book"
             />
             </div>

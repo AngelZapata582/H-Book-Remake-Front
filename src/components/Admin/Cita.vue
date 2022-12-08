@@ -180,7 +180,7 @@ export default {
                 })
             }
             if(this.edit){
-                axios.put(url+this.entity+'/'+this.cita.id,form,
+                axios.put(url+this.entity+'/'+this.cita.id,this.cita,
                 { headers: { Authorization: "Bearer " + this.token }, })
                 .then(res=>{
                     this.Toast.fire({
