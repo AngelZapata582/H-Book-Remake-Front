@@ -10,6 +10,8 @@ import Welcome from '../components/Welcome/Welcome.vue'
 import Home from '../components/User/Home/Home.vue'
 import Registro from '../components/User/Registro.vue'
 import Categories from '../components/User/Categories/Categories.vue'
+import notfound from '../components/Notfound/notfound.vue'
+
 import App from '../App.vue'
 const router = createRouter({
     history: createWebHistory(),
@@ -17,7 +19,7 @@ const router = createRouter({
         {
             path: '/', component: ViewRoutes, children: [
                 //home {path:'',component:},
-                //404 {path:'/:catchAll(.*)',component:},
+                
                 { path: '', redirect: '/welcome' },
                 {
                     path: 'admin', children: [
@@ -32,7 +34,11 @@ const router = createRouter({
                 { path: 'book/:id', component: Detalle_Libro },
                 { path: 'perfil', component: Perfil },
                 { path: 'login', component: Login },
-                { path: 'registro', component: Registro }
+                { path: 'registro', component: Registro },
+                {path:'/:catchAll(.*)',component:notfound}
+              
+         
+
             ]
         }
     ]
