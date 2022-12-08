@@ -10,6 +10,8 @@ import Welcome from '../components/Welcome/Welcome.vue'
 import Home from '../components/User/Home/Home.vue'
 import Registro from '../components/User/Registro.vue'
 import Categories from '../components/User/Categories/Categories.vue'
+import notfound from '../components/Notfound/notfound.vue'
+
 import App from '../App.vue'
 import AdminMenu from '../components/Admin/AdminMenu.vue'
 import axios from "axios";
@@ -24,7 +26,7 @@ const router = createRouter({
         {
             path: '/', component: ViewRoutes, children: [
                 //home {path:'',component:},
-                //404 {path:'/:catchAll(.*)',component:},
+         
                 { path: '', redirect: { name: 'welcome' } },
                 { path: 'welcome', component: Welcome, name: 'welcome' },
                 {
@@ -41,7 +43,8 @@ const router = createRouter({
                 { path: 'book/:id', component: BookDetail, name: 'book' },
                 { path: 'profile', component: Profile, name: 'profile' },
                 { path: 'login', component: Login, name: 'login' },
-                { path: 'registro', component: Registro, name: 'register' }
+                { path: 'registro', component: Registro, name: 'register' },
+                {path:'/:catchAll(.*)',component:notfound}
             ]
         }
     ]

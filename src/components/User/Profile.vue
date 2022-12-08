@@ -34,7 +34,7 @@
     >
     <div class="m-2 bloque" v-for="(cat, index) in libros" :key="cat">
         <div class="card-book" style="float: left">
-        <img v-bind:src="`http://127.0.0.1:8000/api/image/${cat.imagen}`" class="img-card" @click="showBook(cat.book_id)"/>
+        <img v-bind:src="`${urlapi}image/${cat.imagen}`" class="img-card" @click="showBook(cat.book_id)"/>
         <div class="row align-items-start mt-2">
             <div class="col text-start">
                 <b class="letter-page book col-md-9 text-white" >{{ cat.titulo }}</b>
@@ -53,7 +53,6 @@
     </div>
     <div v-show="!isLoading" v-else class="text-center pb-5 pt-5">
         <h3 class="title-main m-4">No tienes libros guardados</h3>
-        
     </div>
 </div>
 
@@ -93,6 +92,7 @@ data() {
         isLoading:false,
         token:VueCookies.get('token'),
         libros: [],
+        urlapi:url,
         user:{
             user:"",
             email:""

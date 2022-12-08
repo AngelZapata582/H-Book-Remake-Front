@@ -61,7 +61,7 @@
                     </div>
                 </router-link>
             </div>
-            <div class="col align-self-center">
+            <!-- <div class="col align-self-center">
                 <div class="card text-light p-2 my-2"
                     style="background-color: #020202;border-radius: 1rem;border: #2B5CBA solid .3rem;min-height: 24rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor"
@@ -76,7 +76,7 @@
                             the card's content.</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
