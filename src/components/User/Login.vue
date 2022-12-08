@@ -79,6 +79,7 @@
    </style>
 
    <script>
+import url from '../../../enviroment.js'
 import Swal from 'sweetalert2'
 import axios from "axios";
 import VueCookies from 'vue-cookies'
@@ -95,7 +96,7 @@ export default {
 
      async login(){
            
-           await axios.post('http://127.0.0.1:8000/api/login',{
+           await axios.post(url+'login',{
               email:this.email,
               password:this.password
            }).then(response=>{
