@@ -61,7 +61,9 @@ export default {
       categories: [],
       token: VueCookies.isKey('token') ? VueCookies.get('token') : null,
       isLogin: VueCookies.isKey('token'),
-      entity: 'categories'
+      entity: 'categories',
+      API_URL: env.API_URL,
+      admin:false
     }
   },
   methods: {
@@ -72,7 +74,7 @@ export default {
       window.location.reload()
     },
     checkAdmin(){
-      axios.get(url+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
+      axios.get(this.API_URL+'check',{headers: {Authorization: "Bearer " + this.token}}).then(r=>{this.admin = r.data})
     },
     getCategories() {
       axios.get(this.API_URL+this.entity, {
