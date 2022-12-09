@@ -23,18 +23,17 @@ export default {
             }),
         },
     },
-    mounted(){
-        console.log(this.book)
-        console.log(`${this.urlapi}image/${book.imagen}`)
-    },
     data(){
         return{
             urlapi:url,
             imageUrl: '',
         }
     },
+    mounted(){
+        console.log(`https://larave-h-books-api-production.up.railway.app/api/image/${book.imagen}`)
+    }
     beforeCreate() { 
-        this.imageUrl = `${this.urlapi}image/${this.book.imagen}`
+        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${book.imagen}`
         console.log(this.imageUrl)
     }
     
