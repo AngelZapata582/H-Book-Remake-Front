@@ -30,14 +30,14 @@ export default {
         }
     },
     mounted(){
-        console.log(`https://larave-h-books-api-production.up.railway.app/api/image/${book.imagen}`)
+        console.log(`https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`)
     },
     beforeCreate() { 
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${book.imagen}`
+        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
         console.log(this.imageUrl)
     },
     updated() {
-       this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${book.imagen}`
+       this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
        console.log("ACTUALIZAR", this.imageUrl)
     }
     
