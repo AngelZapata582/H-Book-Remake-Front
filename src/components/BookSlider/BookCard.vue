@@ -23,6 +23,10 @@ export default {
             }),
         },
     },
+    mounted(){
+        console.log(this.book)
+        console.log(`${urlapi}image/${book.imagen}`)
+    },
     data(){
         return{
             urlapi:url
