@@ -1,6 +1,6 @@
 <template>
     <router-link :to="('/book/' + book.id)">
-        <img v-bind:src="`${urlapi}image/${book.imagen}`" alt="Book cover" />
+        <img v-bind:src="imageUrl" alt="Book cover" />
         <p>{{ book.titulo }}</p>
         <p>
             <small>{{ book.autor }}</small>
@@ -29,9 +29,15 @@ export default {
     },
     data(){
         return{
-            urlapi:url
+            urlapi:url,
+            imageUrl: '',
         }
+    },
+    beforeCreate() { 
+        this.imageUrl = `${urlapi}image/${book.imagen}`
+        console.log(this.imageUrl)
     }
+    
 }
 </script>
 
