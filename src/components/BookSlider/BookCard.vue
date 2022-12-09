@@ -1,6 +1,6 @@
 <template>
     <router-link :to="('/book/' + book.id)">
-        <img v-bind:src="imageUrl" alt="Book cover" />
+        <img v-bind:src="`${urlapi}image/${book.imagen}`" alt="Book cover" />
         <p>{{ book.titulo }}</p>
         <p>
             <small>{{ book.autor }}</small>
@@ -26,24 +26,7 @@ export default {
     data(){
         return{
             urlapi:url,
-            imageUrl: '',
         }
-    },
-    mounted(){
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("ACTUALIZAR", this.imageUrl)
-    },
-    beforeCreate() { 
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("DESPUES", this.imageUrl)
-    },
-    updated() {
-       this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-       console.log("ACTUALIZAR", this.imageUrl)
-    },
-    beforeUpdated() { 
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("DESPUES ACTUALIZAR", this.imageUrl)
     },
     
     
