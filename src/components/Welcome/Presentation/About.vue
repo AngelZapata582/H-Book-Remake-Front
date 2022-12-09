@@ -34,7 +34,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 #container-about {
   width: 80%;
   background-color: #fff;

@@ -361,21 +361,3 @@ export default {
     }
 }
 </script>
-<style>
-.mybutton {
-    border: none;
-    padding: .5rem;
-    border-radius: 50%;
-    outline: none;
-}
-
-.mybutton:hover {
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.border {
-    border-color: #2B5CBA;
-}
-</style>

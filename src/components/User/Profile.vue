@@ -200,7 +200,7 @@ data() {
 </script>
 
 
-<style>
+<style scope>
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */

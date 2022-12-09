@@ -8,7 +8,7 @@
     </footer>
 </template>
 
-<style>
+<style scoped>
 footer {
     margin: 0%;
     left: 0;

@@ -47,7 +47,7 @@ export default {
     data() {
         return {
             settings: {
-                itemsToShow: 5,
+                itemsToShow: 4,
                 snapAlign: 'center',   
             },
             breakpoints: {

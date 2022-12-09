@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 main {
   background-color: #e5e5e5;
   display: grid;

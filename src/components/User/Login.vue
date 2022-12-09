@@ -43,7 +43,7 @@
    
    
    
-   <style>
+   <style scoped>
    
    .animate__animated.animate__bounceInDown {
      --animate-duration: 2s;

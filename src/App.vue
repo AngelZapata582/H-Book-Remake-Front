@@ -15,7 +15,7 @@ export default {
   methods:{}
 }
 </script>
-<style>
+<style scope>
 body{
   margin: 0%;
  background-color: #020202; 
