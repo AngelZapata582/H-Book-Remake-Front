@@ -25,7 +25,7 @@ export default {
     },
     mounted(){
         console.log(this.book)
-        console.log(`${urlapi}image/${book.imagen}`)
+        console.log(`${this.urlapi}image/${book.imagen}`)
     },
     data(){
         return{
