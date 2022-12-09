@@ -6,7 +6,7 @@
         </div>
         <Carousel :settings="settings" :breakpoints="breakpoints">
             <Slide v-for="book in books" :key="book.id">
-                <BookCard :book="book" />
+                <BookCard :book="book" class="m-md-1"/>
             </Slide>
             <template #addons>
                 <navigation />
