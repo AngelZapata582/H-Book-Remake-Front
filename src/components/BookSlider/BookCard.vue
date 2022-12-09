@@ -26,24 +26,7 @@ export default {
     data(){
         return{
             urlapi:url,
-            imageUrl: '',
         }
-    },
-    mounted(){
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("ACTUALIZAR", this.imageUrl)
-    },
-    beforeCreate() { 
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("DESPUES", this.imageUrl)
-    },
-    updated() {
-       this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-       console.log("ACTUALIZAR", this.imageUrl)
-    },
-    beforeUpdated() { 
-        this.imageUrl = `https://larave-h-books-api-production.up.railway.app/api/image/${this.book.imagen}`
-        console.log("DESPUES ACTUALIZAR", this.imageUrl)
     },
     
     
