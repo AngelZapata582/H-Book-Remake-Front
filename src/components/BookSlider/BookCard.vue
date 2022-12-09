@@ -34,7 +34,7 @@ export default {
         }
     },
     beforeCreate() { 
-        this.imageUrl = `${urlapi}image/${book.imagen}`
+        this.imageUrl = `${this.urlapi}image/${this.book.imagen}`
         console.log(this.imageUrl)
     }
     
